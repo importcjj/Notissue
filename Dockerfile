@@ -1,4 +1,4 @@
-From ubuntu:latest
+FROM ubuntu:latest
 
 MAINTAINER jiaju.chen@ele.com
 
