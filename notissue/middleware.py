@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+from .error import IssueError
 
 
 class JSONTranslator(object):
@@ -14,8 +15,7 @@ class JSONTranslator(object):
         try:
             req.context['doc'] = json.dumps(body)
         except (ValueError, UnicodeDecodeError):
-            # TODO: raise a custom error
-            pass
+            raise IssueError(400, message=u'Bad Request!')
 
     def process_response(self, req, resp, resource):
         if 'result' not in req.context:
