@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER jiaju.chen@ele.com
+MAINTAINER jiaju.chen@ele.me
 
 RUN apt-get update
 RUN apt-get install -y python2.7-dev
@@ -13,4 +13,6 @@ RUN pip install -q -r  /tmp/requirements.txt
 
 ADD notissue/ /data/notissue
 ENV PYTHONPATH=/data
-CMD ["/usr/local/bin/gunicorn", "-b :5000", "notissue:app"]
+RUN mkdir -p /data/logs/notissue
+VOLUME /data/logs/notissue
+CMD ["/usr/local/bin/gunicorn", "-b :5000", "--access-logfile=/data/logs/notissue/falcon.log", "notissue:app"]
